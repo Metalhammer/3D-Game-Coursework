@@ -166,6 +166,9 @@ void render()
 	//clear color buffer before rendering
 	gl::Clear(gl::COLOR_BUFFER_BIT);
 
+	//==================================
+	// lighting and render for skybox
+	//==================================
 	RM.getShader(objects[1].getShaderName()).useProgram(); //ready the shader for rendering
 
 	GLuint modelMatrixID = gl::GetUniformLocation(RM.getShader(objects[1].getShaderName()).getProgramID(), "mModel");
@@ -182,41 +185,72 @@ void render()
 	objects[1].render(); //render the object
 	gl::Enable(gl::DEPTH_TEST);
 
+	//======================================
+	// lighting and render for all objects
+	//======================================
 
-	RM.getShader(objects[2].getShaderName()).useProgram(); //ready the shader for rendering
+	//check if the activeate spotlight
+	GLuint activeShaderID;
+	glm::vec3 lightpos;
+	glm::vec3 ambientLight;
+
+	if(player1.score < 1000 ){
+		RM.getShader(objects[2].getShaderName()).useProgram(); //ready the shader for rendering
+		activeShaderID = RM.getShader(objects[2].getShaderName()).getProgramID();
+		lightpos = glm::vec3(0,10,0);
+		ambientLight = glm::vec3(0.5,0.5,0.5);
+	}
+	else{
+		RM.getShader("spotShader").useProgram(); //ready the shader for rendering
+		activeShaderID = RM.getShader("spotShader").getProgramID();
+		lightpos = glm::vec3(0,1,0);
+		ambientLight = glm::vec3(0,0,0);
+	}
+
+	//set up light for render
 
 	//the position of the light
-	GLuint light = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "lightPosition");
-	gl::Uniform3f(light,0,10,0);
+	GLuint light = gl::GetUniformLocation(activeShaderID, "lightPosition");
+	gl::Uniform3f(light,lightpos.x,lightpos.y,lightpos.z);
+
+	GLuint lightTarget = gl::GetUniformLocation(activeShaderID, "lightTarget");
+	gl::Uniform3f(lightTarget,0,0,0);
+
+	GLuint innerConeAngle = gl::GetUniformLocation(activeShaderID, "innerConeAngle");
+	gl::Uniform1f(innerConeAngle, glm::cos(glm::radians(1.0)));
+
+	GLuint outerConeAngle = gl::GetUniformLocation(activeShaderID, "outerConeAngle");
+	gl::Uniform1f(outerConeAngle, glm::cos(glm::radians(3.0)));
 
 	//the reflectivity of the objects
-	GLuint AmbientReflectivity = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "AmbientReflectivity");
-	gl::Uniform3f(AmbientReflectivity,0.5,0.5,0.5);
+	GLuint AmbientReflectivity = gl::GetUniformLocation(activeShaderID, "AmbientReflectivity");
+	gl::Uniform3f(AmbientReflectivity,ambientLight.x,ambientLight.y,ambientLight.z);
 
-	GLuint DiffuseReflectivity = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "DiffuseReflectivity");
+	GLuint DiffuseReflectivity = gl::GetUniformLocation(activeShaderID, "DiffuseReflectivity");
 	gl::Uniform3f(DiffuseReflectivity,0.7,0.7,0.7);
 
-	GLuint SpecularReflectivity = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "SpecularReflectivity");
+	GLuint SpecularReflectivity = gl::GetUniformLocation(activeShaderID, "SpecularReflectivity");
 	gl::Uniform3f(SpecularReflectivity,3.0,3.0,3.0);
 
 	//the intensity of the light
-	GLuint AmbientIntensity = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "AmbientIntensity");
+	GLuint AmbientIntensity = gl::GetUniformLocation(activeShaderID, "AmbientIntensity");
 	gl::Uniform3f(AmbientIntensity,0.3,0.3,0.3);
 
-	GLuint DiffuseIntensity = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "DiffuseIntensity");
+	GLuint DiffuseIntensity = gl::GetUniformLocation(activeShaderID, "DiffuseIntensity");
 	gl::Uniform3f(DiffuseIntensity,3.0,3.0,3.0);
 
-	GLuint SpecularIntensity = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "SpecularIntensity");
+	GLuint SpecularIntensity = gl::GetUniformLocation(activeShaderID, "SpecularIntensity");
 	gl::Uniform3f(SpecularIntensity,1.0,1.0,1.0);
 
-	GLuint SpecularExponent = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "SpecularExponent");
+	GLuint SpecularExponent = gl::GetUniformLocation(activeShaderID, "SpecularExponent");
 	gl::Uniform1f(SpecularExponent,64);
 
-	
-	GLuint normalMatrixID = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "mNormal");
-	 modelMatrixID = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "mModel");
-	 viewMatrixID = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "mView");
-	 projectionMatrixID = gl::GetUniformLocation(RM.getShader(objects[2].getShaderName()).getProgramID(), "mProjection");
+	//set up matrices for render
+
+	GLuint normalMatrixID = gl::GetUniformLocation(activeShaderID, "mNormal");
+	modelMatrixID = gl::GetUniformLocation(activeShaderID, "mModel");
+	viewMatrixID = gl::GetUniformLocation(activeShaderID, "mView");
+	projectionMatrixID = gl::GetUniformLocation(activeShaderID, "mProjection");
 
 	glm::mat4 mv = player1.playerCam.getViewMatrix() * modelMatrix;
 	glm::mat3 normalMatrix = glm::mat3( glm::vec3(mv[0]) , glm::vec3(mv[1]), glm::vec3(mv[2]));
@@ -224,12 +258,7 @@ void render()
 	gl::UniformMatrix4fv(viewMatrixID, 1, gl::FALSE_, &player1.playerCam.getViewMatrix()[0][0]);
 	gl::UniformMatrix4fv(projectionMatrixID, 1, gl::FALSE_, &player1.playerCam.getProjectionMatrix()[0][0]);
 
-	gl::Disable(gl::DEPTH_TEST);
-	RM.getTexture(objects[2].getTextureName()).useTexture(); //bind the texture for rendering
-	modelMatrix = objects[2].getTransformMatrix(); //set the model matrix for rendering
-	gl::UniformMatrix4fv(modelMatrixID, 1, gl::FALSE_, &modelMatrix[0][0]);
-	objects[2].render(); //render the object
-	gl::Enable(gl::DEPTH_TEST);
+	//render objects
 
 		for(int i=2; i<objects.size();i++)
 		{
@@ -331,6 +360,7 @@ void spawnPickup(){
 
 	
 	newPickup.setUpPickupObject(RM.getMesh("block"), "health.png", "shader", glm::vec3(a,0.0,b));
+	newPickup.scale(glm::vec3(0.5,0.5,0.5));
 	pickupObject.push_back(newPickup);
 
 
@@ -341,9 +371,6 @@ void spawnBonus(){
 	pickups newBonus;
 	a = rand()%38 - 15;
 	b = rand()%38 - 15;
-
-
-	
 	
 	newBonus.setUpPickupObject(RM.getMesh("block"), "fist.png", "shader", glm::vec3(a,5.0,b));
 	newBonus.setVel(glm::vec3(0,2,0));
@@ -515,6 +542,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	RM.loadShader("../shader/basic3.frag","../shader/basic3.vert", "skyboxShader"); //load a shader
 	RM.loadShader("../shader/basic4.frag","../shader/basic4.vert", "shader"); //load a shader
 	RM.loadShader("../shader/basic5.frag","../shader/basic5.vert", "menuShader"); //load a shader
+	RM.loadShader("../shader/basic6.frag","../shader/basic6.vert", "spotShader"); //load a shader
 
 	RM.loadTexture("fist.png"); //load a texture
 	RM.loadTexture("health.png"); //load a texture
