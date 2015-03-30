@@ -224,20 +224,20 @@ void render()
 
 	//the reflectivity of the objects
 	GLuint AmbientReflectivity = gl::GetUniformLocation(activeShaderID, "AmbientReflectivity");
-	gl::Uniform3f(AmbientReflectivity,ambientLight.x,ambientLight.y,ambientLight.z);
+	gl::Uniform3f(AmbientReflectivity,1.0,1.0,1.0);
 
 	GLuint DiffuseReflectivity = gl::GetUniformLocation(activeShaderID, "DiffuseReflectivity");
-	gl::Uniform3f(DiffuseReflectivity,0.7,0.7,0.7);
+	gl::Uniform3f(DiffuseReflectivity,1.0,1.0,1.0);
 
 	GLuint SpecularReflectivity = gl::GetUniformLocation(activeShaderID, "SpecularReflectivity");
 	gl::Uniform3f(SpecularReflectivity,3.0,3.0,3.0);
 
 	//the intensity of the light
 	GLuint AmbientIntensity = gl::GetUniformLocation(activeShaderID, "AmbientIntensity");
-	gl::Uniform3f(AmbientIntensity,0.3,0.3,0.3);
+	gl::Uniform3f(AmbientIntensity,ambientLight.x,ambientLight.y,ambientLight.z);
 
 	GLuint DiffuseIntensity = gl::GetUniformLocation(activeShaderID, "DiffuseIntensity");
-	gl::Uniform3f(DiffuseIntensity,3.0,3.0,3.0);
+	gl::Uniform3f(DiffuseIntensity,1.0,1.0,1.0);
 
 	GLuint SpecularIntensity = gl::GetUniformLocation(activeShaderID, "SpecularIntensity");
 	gl::Uniform3f(SpecularIntensity,1.0,1.0,1.0);
