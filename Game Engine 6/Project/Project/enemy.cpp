@@ -13,7 +13,8 @@ enemy::~enemy()
 
 void enemy::setUpEnemyObject(mesh Mesh, std::string textureName, std::string shaderName, glm::vec3 Position)
 {
-	this->velocity = 0.075f;
+	//this->velocity = 0.075f;
+	this->velocity = 0.0080f;
 	this->Mesh = &Mesh; //set the mesh for the object to the mesh
 	this->textureName = textureName; //set the name of the objects texture
 	this->shaderName = shaderName; //set the name of the objects shader

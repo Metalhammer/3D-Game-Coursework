@@ -17,7 +17,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "light.h"
-
+#include "pickups.h"
 //sound
 #include <irrKlang.h>
 using namespace irrklang;
@@ -27,6 +27,7 @@ resourceManager RM;
 GLFWwindow* window; // the render window
 glm::mat4 modelMatrix(1.0); //the model matrix used for rendering
 std::vector<gameObject> objects; //vector of objects in the game
+std::vector<pickups> pickupObject;
 std::vector<enemy> enemies;
 std::vector<gameObject> bullets;
 bool loaded = false; //is the engine loaded
@@ -40,6 +41,15 @@ float spawnTimer = 0;
 float startTime = 0;
 int enemiesSpawned = 1;
 float lastShot = 0;
+
+float a, b, x, z;
+float aDiff, bDiff, xDif, zDif;
+float dist = 0;
+float dist2 = 0;
+float pickupTimer = 0;
+int pickupsSpawned = 1;
+float timer2 = 10;
+
 
 //the current and old positions of the mouse
 double posX,posY,oldX,oldY;
@@ -259,6 +269,16 @@ void render()
 			//enemy1.render();
 			bullets[i].render(); //render the object
 		}
+		
+		for (int i=0; i<pickupObject.size();i++)
+		{
+			RM.getTexture(pickupObject[i].getTextureName()).useTexture(); //bind the texture for rendering
+			modelMatrix = pickupObject[i].getTransformMatrix(); //set the model matrix for rendering
+
+			gl::UniformMatrix4fv(modelMatrixID, 1, gl::FALSE_, &modelMatrix[0][0]);
+
+			pickupObject[i].render(); //render the object
+		}
 
 }
 
@@ -284,6 +304,16 @@ void renderMenu()
 
 
 	objects[0].render();
+}
+
+void spawnPickup(){
+
+	pickups newPickup;
+	a = rand()%36 - 18;
+	b = rand()%36 - 18;
+
+	newPickup.setUpPickupObject(RM.getMesh("block"), "health.png", "shader", glm::vec3(a,0.0,b));
+	pickupObject.push_back(newPickup);
 }
 
 void spawnEnemy(){
@@ -409,6 +439,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	RM.loadShader("../shader/basic4.frag","../shader/basic4.vert", "shader"); //load a shader
 	RM.loadShader("../shader/basic5.frag","../shader/basic5.vert", "menuShader"); //load a shader
 
+	RM.loadTexture("health.png"); //load a texture
 	RM.loadTexture("face.png"); //load a texture
 	RM.loadTexture("grass.png"); //load a texture
 	RM.loadTexture("Splash.png"); //load a texture
@@ -518,7 +549,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		
 
-		if(glfwGetTime()-elapsedTime > 0.016)
+		if(glfwGetTime()-elapsedTime > 0)
 		{
 		//=====================
 		// MAIN LOOP GOES HERE
@@ -586,6 +617,22 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (spawnTimer - startTime >  enemiesSpawned*2){
 				spawnEnemy();
 				enemiesSpawned++;
+			}
+			for(int j = 0; j < pickupObject.size(); j++){
+				if (coll.checkCollision(player1,pickupObject.at(j)) == true){
+					pickupObject.erase(pickupObject.begin() +j);
+					j--;
+					player1.health += 10;
+					std::cout << "player health: " << player1.health << std::endl;
+				}
+			}
+			pickupTimer = glfwGetTime();
+
+			if (pickupTimer - timer2 >  pickupsSpawned*6){
+				
+				spawnPickup();
+				pickupsSpawned++;
+				
 			}
 
 			//objects[objects.size()-1].chase(player1);
