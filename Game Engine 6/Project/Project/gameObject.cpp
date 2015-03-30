@@ -140,10 +140,10 @@ bool gameObject::chase(gameObject player){
 
 	ratio = this->velocity/hypDif;
 
-	xVel = ratio * xDif;
-	zVel = ratio * zDif;
+	xVel = ratio * xDif *3;
+	zVel = ratio * zDif *3;
 
-	if (hypDif > 5){
+	if (hypDif > 2){
 		this->setPosition(glm::vec3(this->getPosition().x - xVel, this->getPosition().y, this->getPosition().z - zVel));
 	}
 
@@ -157,7 +157,7 @@ bool gameObject::chase(gameObject player){
 
 	transform = glm::translate(glm::mat4(1.0f), glm::vec3(this->getPosition()));
 
-	if (hypDif < 5){
+	if (hypDif < 2){
 		//this->setPosition(glm::vec3(this->getPosition().x + xVel, this->getPosition().y, this->getPosition().z + zVel));
 		return false;
 	}

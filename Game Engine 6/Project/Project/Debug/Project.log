@@ -1,35 +1,62 @@
-﻿  Project.cpp
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(77): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(89): warning C4305: 'argument' : truncation from 'double' to 'float'
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(92): warning C4305: 'argument' : truncation from 'double' to 'float'
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(96): warning C4305: 'argument' : truncation from 'double' to 'float'
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(100): warning C4305: 'argument' : truncation from 'double' to 'float'
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(104): warning C4305: 'argument' : truncation from 'double' to 'float'
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(142): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(220): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(223): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(263): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(282): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(296): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(310): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(320): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(358): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(359): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(372): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(373): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(392): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(393): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(432): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(434): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(448): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(451): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(465): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(637): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(679): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(693): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(717): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(731): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(736): warning C4018: '<' : signed/unsigned mismatch
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(745): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\sam\desktop\3d-game-coursework\game engine 6\project\project\project.cpp(802): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-  Project.vcxproj -> C:\Users\Sam\Desktop\3D-Game-Coursework\Game Engine 6\Project\Debug\Project.exe
+﻿Build started 30/03/2015 17:18:54.
+     1>Project "C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\Project\Project.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\..\OpenGL\GLFW\glfw-3.0.4.bin.WIN32\include" /I"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\..\OpenGL\glm\glm" /I"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\..\OpenGL\SOIL\src" /I"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\..\OpenGL\irrKlang-32bit-1.5.0\irrKlang-1.5.0\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Project.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Project.cpp
+         Project.cpp
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(75): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(86): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(89): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(93): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(97): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(101): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(130): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(197): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(212): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(215): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(255): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(274): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(288): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(302): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(312): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(350): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(351): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(364): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(365): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(384): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(385): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(431): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(433): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(447): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(450): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(464): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(596): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(645): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(659): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(675): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(689): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(694): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(703): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\dan's pc\documents\github\3d-game-coursework\game engine 6\project\project\project.cpp(752): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\Debug\Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\..\OpenGL\SOIL\projects\VC9\debug" /LIBPATH:"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\..\OpenGL\irrKlang-32bit-1.5.0\irrKlang-1.5.0\lib\Win32-visualStudio" irrKlang.lib opengl32.lib glfw3.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\Debug\Project.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\Debug\Project.lib" /MACHINE:X86 Debug\boundingBox.obj
+         Debug\camera.obj
+         Debug\collisions.obj
+         Debug\enemy.obj
+         Debug\gameObject.obj
+         Debug\gl_core_4_3.obj
+         Debug\Mesh.obj
+         Debug\moveable.obj
+         Debug\pickups.obj
+         Debug\player.obj
+         Debug\Project.obj
+         Debug\ResourceManager.obj
+         Debug\shader.obj
+         Debug\stdafx.obj
+         Debug\texture.obj
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Project.vcxproj -> C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\Debug\Project.exe
+     1>Done Building Project "C:\Users\Dan's PC\Documents\GitHub\3D-Game-Coursework\Game Engine 6\Project\Project\Project.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:07.38

@@ -92,7 +92,6 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gl_core_4_3.hpp" />
-    <ClInclude Include="light.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="moveable.h" />
     <ClInclude Include="pickups.h" />
@@ -111,7 +110,6 @@
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="gl_core_4_3.cpp" />
-    <ClCompile Include="light.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="moveable.cpp" />
     <ClCompile Include="pickups.cpp" />

@@ -63,9 +63,6 @@
     <ClInclude Include="enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\OpenGL\irrKlang-32bit-1.5.0\irrKlang-1.5.0\include\irrKlang.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,9 +111,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pickups.cpp">
