@@ -80,7 +80,7 @@ void input()
 			newBullet.scale(glm::vec3(1,1,1));
 			newBullet.setVel(player1.playerCam.getForward());
 			bullets.push_back(newBullet);
-			SoundEngine->play2D("../Resources/DMR Shot 1.mp3", gl::FALSE_);
+			SoundEngine->play2D("../Resources/playerShoot.wav", gl::FALSE_);
 			canShoot = false;
 		}
 

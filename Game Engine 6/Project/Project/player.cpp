@@ -32,7 +32,7 @@ void player::setUpPlayerObject(mesh Mesh, std::string textureName, std::string s
 	transform = glm::translate(glm::mat4(1.0f), glm::vec3(position)); //set up the transform matrix
 	createVAO(Mesh); //create the vao for the object when it is created
 	setMinMax();
-	this->health = 20; //20 for testing
+	this->health = 100; //20 for testing
 	this->score = 0;
 }
 
