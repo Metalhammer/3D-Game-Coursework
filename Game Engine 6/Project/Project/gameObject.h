@@ -30,6 +30,8 @@ protected:
 
 	void setMinMax(); //set the min and max bounding box points
 
+	
+
 public:
 	gameObject(); //create an object within the game
 	gameObject(mesh Mesh, glm::vec3 color, std::string shaderName, glm::vec3 Position); //create an object with a mesh, color, shader and position

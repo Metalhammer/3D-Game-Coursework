@@ -28,6 +28,7 @@ GLFWwindow* window; // the render window
 glm::mat4 modelMatrix(1.0); //the model matrix used for rendering
 std::vector<gameObject> objects; //vector of objects in the game
 std::vector<pickups> pickupObject;
+std::vector<pickups> bonusObject;
 std::vector<enemy> enemies;
 std::vector<gameObject> bullets;
 bool loaded = false; //is the engine loaded
@@ -47,14 +48,17 @@ float aDiff, bDiff, xDif, zDif;
 float dist = 0;
 float dist2 = 0;
 float pickupTimer = 0;
+float bonusTimer = 0;
 int pickupsSpawned = 1;
 float timer2 = 10;
-
-
+float timer3 = 0;
+int bonusSpawned = 1;
+int killCounter = 0;
 //the current and old positions of the mouse
 double posX,posY,oldX,oldY;
 
 ISoundEngine *SoundEngine = createIrrKlangDevice();
+
 
 void input()
 {
@@ -76,6 +80,7 @@ void input()
 			newBullet.scale(glm::vec3(1,1,1));
 			newBullet.setVel(player1.playerCam.getForward());
 			bullets.push_back(newBullet);
+			SoundEngine->play2D("../Resources/DMR Shot 1.mp3", gl::FALSE_);
 			canShoot = false;
 		}
 
@@ -99,9 +104,12 @@ void input()
 				player1.playerCam.strafeRight(0.05);} //move right when D is pressed
 
 		if (glfwGetKey(window,GLFW_KEY_F)){
-			std::cout << "X: " << player1.getPosition().x <<
+			/*std::cout << "X: " << player1.getPosition().x <<
 				"\nY: " << player1.getPosition().y << 
-				"\nZ: " << player1.getPosition().z << std::endl;;} //move right when D is pressed
+				"\nZ: " << player1.getPosition().z << std::endl;;*/
+			
+
+		} 
 
 
 		if (glfwGetKey(window,GLFW_KEY_SPACE)){
@@ -280,6 +288,15 @@ void render()
 			pickupObject[i].render(); //render the object
 		}
 
+		for (int i=0; i<bonusObject.size();i++)
+		{
+			RM.getTexture(bonusObject[i].getTextureName()).useTexture(); //bind the texture for rendering
+			modelMatrix = bonusObject[i].getTransformMatrix(); //set the model matrix for rendering
+
+			gl::UniformMatrix4fv(modelMatrixID, 1, gl::FALSE_, &modelMatrix[0][0]);
+
+			bonusObject[i].render(); //render the object
+		}
 }
 
 void renderMenu()
@@ -312,8 +329,27 @@ void spawnPickup(){
 	a = rand()%36 - 18;
 	b = rand()%36 - 18;
 
+	
 	newPickup.setUpPickupObject(RM.getMesh("block"), "health.png", "shader", glm::vec3(a,0.0,b));
 	pickupObject.push_back(newPickup);
+
+
+}
+
+void spawnBonus(){
+
+	pickups newBonus;
+	a = rand()%38 - 15;
+	b = rand()%38 - 15;
+
+
+	
+	
+	newBonus.setUpPickupObject(RM.getMesh("block"), "fist.png", "shader", glm::vec3(a,5.0,b));
+	newBonus.setVel(glm::vec3(0,2,0));
+	pickupObject.push_back(newBonus);
+
+
 }
 
 void spawnEnemy(){
@@ -340,20 +376,63 @@ void spawnEnemy(){
 	enemies.push_back(newEnemy);
 }
 
+void sounds(){
+	if(killCounter == 5){
+		SoundEngine->play2D("../Resources/Killing Spree.mp3", gl::FALSE_);
+	}
+	else if(killCounter == 10){
+		SoundEngine->play2D("../Resources/Killing Frenzy.mp3", gl::FALSE_);
+	}
+	else if(killCounter == 15){
+		SoundEngine->play2D("../Resources/Running Riot.mp3", gl::FALSE_);
+	}
+	else if(killCounter == 25){
+		SoundEngine->play2D("../Resources/Untouchable.mp3", gl::FALSE_);
+	}
+	else if(killCounter == 35){
+		SoundEngine->play2D("../Resources/Inconceivable.mp3", gl::FALSE_);
+	}
+	else if(killCounter == 45){
+		SoundEngine->play2D("../Resources/Invincible.mp3", gl::FALSE_);
+	}
+	else if(killCounter == 55){
+		SoundEngine->play2D("../Resources/Unfrigginbelievable.mp3", gl::FALSE_);
+	}
+
+}
+
+void updateBonus(){
+	for(int i = 0; i < bonusObject.size(); i++){
+		bonusObject[i].setPosition(bonusObject[i].getPosition() + bonusObject[i].getVel());
+		for (int j = 0; j < enemies.size(); j++){
+
+			if (coll.checkCollision(player1,bonusObject.at(j)) == true){
+					bonusObject.erase(bonusObject.begin() +j);
+					j--;
+					player1.health = 100;
+					std::cout << "player health: " << player1.health << std::endl;
+				}
+			}
+			
+		}
+	}
+
 void updateBullets(){
 	for (int i = 0; i < bullets.size(); i++)
 	{
 		bullets[i].setPosition(bullets[i].getPosition() + bullets[i].getVel());
 		for (int j = 0; j < enemies.size(); j++){
-			if (coll.checkCollision(bullets[i], enemies[j])){
-				bullets.erase(bullets.begin() + i);
-				enemies.erase(enemies.begin() + j);
-				j = enemies.size();
-				i--;
-				player1.score += 100;
-				std::cout << "Score: " << player1.score << std::endl;
+				if (coll.checkCollision(bullets[i], enemies[j])){
+					bullets.erase(bullets.begin() + i);
+					enemies.erase(enemies.begin() + j);
+					j = enemies.size();
+					i--;
+					player1.score += 100;
+					killCounter += 1;
+					sounds();
+					std::cout << "Score: " << player1.score << std::endl;
+				}
 			}
-		}
 	}
 
 	for (int i = 0; i < bullets.size(); i++)
@@ -364,6 +443,8 @@ void updateBullets(){
 		}
 	}
 }
+
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -426,10 +507,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	//LOAD ASSETS
 	//=====================================================================================
 
-	//Audio
-	SoundEngine->play2D("../Resources/gameSound.mp3", gl::TRUE_);
-	//
-
 	RM.loadMesh("block.txt", "block"); //create a block
 	RM.loadMesh("Plane.txt", "plane"); //create a block
 	RM.loadMesh("window.txt", "window"); //create a block
@@ -439,6 +516,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	RM.loadShader("../shader/basic4.frag","../shader/basic4.vert", "shader"); //load a shader
 	RM.loadShader("../shader/basic5.frag","../shader/basic5.vert", "menuShader"); //load a shader
 
+	RM.loadTexture("fist.png"); //load a texture
 	RM.loadTexture("health.png"); //load a texture
 	RM.loadTexture("face.png"); //load a texture
 	RM.loadTexture("grass.png"); //load a texture
@@ -473,7 +551,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	wall2.scale(glm::vec3(40,10,1));
 	wall3.scale(glm::vec3(1,10,40));
 	wall4.scale(glm::vec3(1,10,40));
-	
 	
 
 	//block1.scale(glm::vec3(20,1,5));
@@ -559,6 +636,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		player1.setPosition(player1.playerCam.getPosition());
 		input();
 		player1.setPosition(player1.playerCam.getPosition());
+	
+		if(player1.health < 10){
+			SoundEngine->play2D("../Resources/Game Over.mp3", gl::FALSE_);
+			gamemode = 3;
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwGetCursorPos(window,&posX,&posY); //get the position of the cursor within the window
+			player1.reset(glm::vec3(0.0,0.0,5.0));
+			}
+
+
 		if(gamemode == 1)
 		{
 			for(int i = 2; i < objects.size(); i ++)
@@ -626,6 +713,7 @@ int _tmain(int argc, _TCHAR* argv[])
 					std::cout << "player health: " << player1.health << std::endl;
 				}
 			}
+
 			pickupTimer = glfwGetTime();
 
 			if (pickupTimer - timer2 >  pickupsSpawned*6){
@@ -635,17 +723,49 @@ int _tmain(int argc, _TCHAR* argv[])
 				
 			}
 
+	
+
+			/*for(int h = 0; h < bonusObject.size(); h++){
+				if (coll.checkCollision(player1,pickupObject.at(h)) == true){
+					bonusObject.erase(bonusObject.begin() +h);
+					h--;
+					player1.health = 100;
+					std::cout << "player health: " << player1.health << std::endl;
+				}
+			}*/
+			
+			/*updateBonus();
+
+			bonusTimer = glfwGetTime();
+			if(bonusTimer - timer3 >bonusSpawned*2 && player1.health <= 20 && bonusSpawned != 2){
+				spawnBonus();
+				
+				bonusSpawned++;
+			}*/
+
+
+
 			//objects[objects.size()-1].chase(player1);
 			//objects[objects.size()-1].
 			objects.at(1).setPosition(glm::vec3(player1.getPosition().x,player1.getPosition().y,player1.getPosition().z));
 			render(); //render all the objects
 		}
 	
+
 		if(gamemode == 3)
 		{
 			renderMenu(); //render the menu
 		}
 		
+	/*	if(player1.health < 10){
+			std::cout << " test " << std::endl;
+			//gamemode == 3;
+			//renderMenu();			 
+			//player1.reset(glm::vec3(0.0,0.0,5.0));
+			}*/
+
+
+
 		//get inputs
 		glfwPollEvents();
 		//redraws the window

@@ -19,5 +19,6 @@ public:
 	void setCanJump(bool canJump);
 	bool getCanJump();
 	int health, score;
+	void reset(glm::vec3 Position);
 };
 #endif

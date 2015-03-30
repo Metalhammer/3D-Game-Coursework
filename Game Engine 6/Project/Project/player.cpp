@@ -32,7 +32,7 @@ void player::setUpPlayerObject(mesh Mesh, std::string textureName, std::string s
 	transform = glm::translate(glm::mat4(1.0f), glm::vec3(position)); //set up the transform matrix
 	createVAO(Mesh); //create the vao for the object when it is created
 	setMinMax();
-	this->health = 100;
+	this->health = 20; //20 for testing
 	this->score = 0;
 }
 
@@ -44,4 +44,10 @@ void player::setCanJump(bool canJump)
 bool player::getCanJump()
 {
 	return canJump;
+}
+
+void player::reset(glm::vec3 Position){
+	this->health = 100;
+	this->score = 0;
+	this->position = Position; //set the current position of the object within the world
 }
